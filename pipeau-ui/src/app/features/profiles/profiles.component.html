@@ -1,0 +1,106 @@
+<div class="container">
+  <h1 class="row display-4 mb-6">Manage profiles</h1>
+
+  <div class="row">
+
+    <div class="col-sm-3 ">
+      <div *ngIf="profileService.profiles.length>0; else noprofile">
+        <span>List of profiles:</span>
+        <div class="list-group">
+          <a *ngFor="let profile of profileService.profiles;
+                  let i = index"
+             [attr.data-index]="i"
+             [class.active]="selectedIndex==i"
+             [routerLink]="['/profiles', {'selectedIndex':i}]"
+             class="list-group-item list-group-item-action">
+            {{profile.name}}
+
+          </a>
+        </div>
+      </div>
+      <ng-template #noprofile>No profile defined. Create a new one.</ng-template>
+      <div class=" text-center">
+        <a [routerLink]="['/profiles',{'create':true}]"
+           class="btn mt-1">
+          <i class="fa fa-plus"></i> Create new...</a>
+      </div>
+    </div>
+    <form *ngIf="selectedProfile!=null"
+          novalidate #profileForm="ngForm"
+          (ngSubmit)="saveProfile(profileForm)"
+          class="container col-sm-9">
+      <aside>{{creationMode?'Create a new profile':'Modify profile'}}</aside>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Profile name *</label>
+        <div class="col-sm-6">
+          <input type="text"
+                 name="name"
+                 class="form-control"
+                 [(ngModel)]="selectedProfile.name"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">AWS access key Id *</label>
+        <div class="col-sm-6">
+          <input type="text"
+                 name="accessKey"
+                 class="form-control"
+                 [(ngModel)]="selectedProfile.awsAccessKeyId"
+                 required
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">AWS secret access key *</label>
+        <div class="col-sm-6">
+          <input type="text"
+                 name="secretKey"
+                 class="form-control"
+                 [(ngModel)]="selectedProfile.awsSecretAccessKey"
+                 required
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Default AWS region *</label>
+        <div class="col-sm-6">
+          <select class="form-control"
+                  name="region"
+                  [(ngModel)]="selectedProfile.awsDefaultRegion"
+                  required
+          >
+            <option value="">Please select a region</option>
+            <option *ngFor="let region of regions"
+                    [value]="region">
+              {{region}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class=" col-sm-12 text-center">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!profileForm.form.valid">
+            {{creationMode?'Create':'Save'}}
+          </button>
+          <button *ngIf="!creationMode"
+                  class="btn btn-danger"
+                  (click)="deleteProfile()">
+            Delete profile
+          </button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+</div>
