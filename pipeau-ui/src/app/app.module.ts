@@ -8,24 +8,31 @@ import {AppRoutingModule} from "./app.routing.module";
 import {DashboardModule} from "./features/dashboard/dashboard.module";
 import {ProfilesModule} from "./features/profiles/profiles.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {LambdasModule} from "./features/lambdas/lambdas.module";
+import {PipesModule} from "./shared/pipes/pipes.module";
+import {CloudwatchLogViewerPipe} from "./shared/pipes/cloudwatch-log-viewer.pipe";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    HeaderModule,
-    AppRoutingModule,
-
-    DashboardModule,
-    ProfilesModule,
     FormsModule,
     ReactiveFormsModule,
+
+    AppRoutingModule,
+
+    HeaderModule,
+    DashboardModule,
+    ProfilesModule,
+    LambdasModule,
+
+    PipesModule,
     //to disable animations:
     //NoopAnimationsModule
   ],
-  providers: [],
+  providers: [CloudwatchLogViewerPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
