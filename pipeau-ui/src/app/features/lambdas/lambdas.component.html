@@ -1,0 +1,17 @@
+<p>
+  <button class="btn btn-primary" (click)="executeLambda()">Execute lambda</button>
+  {{lambdaExecutionResult | json}}
+  <button class="btn btn-primary" (click)="loadSomeLogs()">load logs</button>
+</p>
+Execution ids:
+<div *ngFor="let desc of executionDescriptors">
+  <a href="{{desc | cloudwatchLogViewer}}">{{desc.requestId}}</a>
+</div>
+
+Logs:
+<div>
+  <pre>
+    <!-- TODO: should format the message -->
+   <div *ngFor="let e of lambda_log_events">{{e.message}}</div>
+  </pre>
+</div>
