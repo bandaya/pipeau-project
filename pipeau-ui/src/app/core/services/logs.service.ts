@@ -23,7 +23,7 @@ export class LogsService {
   /**
    * Get execution logs descriptor names
    */
-  getExecutionLogsDescriptorIds(): Promise<Promise<ExecutionLogDescriptor[]>> {
+  getExecutionLogsDescriptorIds(): Promise<ExecutionLogDescriptor[]> {
     let s3 = new AWS.S3()
     let request: ListObjectsV2Request = {
       Bucket: this.configuration.bucket,

@@ -16,16 +16,17 @@ export class LambdasComponent implements OnInit {
   public lambdaExecutionResult: any;
   public lambda_log_events: any[] = [];
   public lambda_logs = ""
-  public executionDescriptors:ExecutionLogDescriptor[];
+  public executionDescriptors: ExecutionLogDescriptor[];
+
   constructor(private logsService: LogsService) {
   }
 
   ngOnInit() {
     console.log(`1 and 1 make ${1 + 1}`);
-      this.logsService.getExecutionLogsDescriptorIds()
-        .then(e=>{
-          this.executionDescriptors = e;
-        })
+    this.logsService.getExecutionLogsDescriptorIds()
+      .then(e => {
+        this.executionDescriptors = e;
+      })
   }
 
 
@@ -40,7 +41,7 @@ export class LambdasComponent implements OnInit {
         }
         this.lambda_log_events = this.lambda_log_events.concat(data.events);
       }).catch((error: AWSError) => {
-        console.log(error);
+      console.log(error);
     });
 
     let request: GetLogEventsRequest = {
